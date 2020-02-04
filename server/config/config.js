@@ -18,6 +18,6 @@ let urlDB;
 if (process.env.NODE_ENV === 'dev') {
     urlDB = 'mongodb://localhost:27017/usuarios';
 } else {
-    urlDB = 'mongodb+srv://isai86:e9L2qXeh5aaoc3C6@cluster0-n6wvx.mongodb.net/oficiosApp';
+    urlDB = 'process.env.MONGO_URI';
 }
 process.env.URLDB = urlDB;
