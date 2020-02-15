@@ -44,15 +44,15 @@ app.get('/usuario', verificaToken, (req, res) => {
 
     //res.json('get Usuario LOCAL');
 });
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     let body = req.body;
 
     let usuario = new Contratistas({
         nombre: body.nombre,
         email: body.email,
-        phone: body.phone,
         password: bcrypt.hashSync(body.password, 10),
+        phone: body.phone,
         role: body.role
     });
 
