@@ -51,6 +51,7 @@ app.post('/usuario', function(req, res) {
     let usuario = new Contratistas({
         nombre: body.nombre,
         email: body.email,
+        phone: body.phone,
         password: bcrypt.hashSync(body.password, 10),
         role: body.role
     });
@@ -75,7 +76,7 @@ app.post('/usuario', function(req, res) {
 });
 app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
     let id = req.params.id;
-    let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
+    let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado', 'phone']);
 
     Contratistas.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
 
