@@ -43,11 +43,6 @@ let usuarioSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    phone: {
-        type: Number,
-        unique: true,
-        required: [true, 'El número es necesario']
-    }
 
 });
 
