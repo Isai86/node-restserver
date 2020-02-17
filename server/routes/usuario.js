@@ -38,12 +38,15 @@ app.get('/usuario', verificaToken, (req, res) => {
                     usuarios,
                     cuantos: conteo
                 });
-            })
+
+            });
+
 
         });
 
-    //res.json('get Usuario LOCAL');
+
 });
+
 app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     let body = req.body;
@@ -56,7 +59,9 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
         role: body.role
     });
 
+
     usuario.save((err, usuarioDB) => {
+
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -64,17 +69,21 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
             });
         }
 
-        //usuarioDB.password = null;
-
         res.json({
             ok: true,
             usuario: usuarioDB
         });
 
+
     });
 
+
 });
+
+
+
 app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
+
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado', 'phone']);
 
@@ -87,22 +96,28 @@ app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) 
             });
         }
 
+
+
         res.json({
             ok: true,
             usuario: usuarioDB
         });
-    });
 
+    })
 
 });
+
 app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
+
 
     let id = req.params.id;
 
+    // Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
+
     let cambiaEstado = {
-            estado: false
-        }
-        //Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
+        estado: false
+    };
+
     Contratistas.findByIdAndUpdate(id, cambiaEstado, { new: true }, (err, usuarioBorrado) => {
 
         if (err) {
@@ -120,14 +135,18 @@ app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, re
                 }
             });
         }
+
         res.json({
             ok: true,
             usuario: usuarioBorrado
         });
 
-
     });
 
+
+
 });
+
+
 
 module.exports = app;
